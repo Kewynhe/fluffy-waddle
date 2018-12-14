@@ -40,39 +40,49 @@ class KewynhePlayer extends Player
         // -------------------------------------    -----------------------------------------------------
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
-        
 
+        //Begin with foe
         if ($this->result->getNbRound() == 0) {
-            return 'foe';
+            return 'friend';
         }
         else {
             $me = $this->result->getLastScoreFor($this->mySide);
             $other = $this->result->getLastScoreFor($this->opponentSide);
 
-            $lastchoice = $this->result->getLastChoiceFor($this->opponentSide);
+            $lastChoice = $this->result->getLastChoiceFor($this->opponentSide);
 
-            $foechoices = $this->result->getStatsFor($this->opponentSide);
-            //array('name' => value, 'score' => value, 'friend' => value, 'foe' => value
+            $myChoices = $this->result->getStatsFor($this->mySide);
+            $foeChoices = $this->result->getStatsFor($this->opponentSide);
+            
+            $mySum = $myChoices['friend'] + $foeChoices['foe'];
+            $foeSum = $foeChoices['friend'] + $foeChoices['foe'];
 
-            $sum = $foechoices['friend'] + $foechoices['foe'];
+            $foe_foeStats = $foeChoices['foe']/$foeSum * 100;
+            $foe_friendStats = $foeChoices['friend']/$foeSum * 100;
 
-            if ($sum > 3 && $foechoices['foe'] == $sum) {
+            $my_foeStats = $myChoices['foe']/$mySum * 100;
+            $my_friendStats = $myChoices['friend']/$mySum * 100;
+
+            if ($foeSum > 3 && $foeChoices['foe'] == $foeSum) {
                 return 'foe';
             }
-            if ($sum > 3 && $foechoices['friend'] == $sum) {
-                return 'foe';
+            if ($foeSum > 3 && $foeChoices['friend'] == $foeSum) {
+                return 'friend';
             }
             
-            if ($lastchoice == 'foe') {
-                if ($me <= $other) {
-                    return 'foe';
+            if ($lastChoice == 'foe') {
+                if ($myChoices['score'] < $foeChoices['score']) {
+                    if ($foe_foeStats > 30)
+                        return 'foe';
+                    else
+                        return 'friend';
                 }
                 else {
-                    return 'friend';
+                    return $foe_friendStats > 70 ? 'friend' : 'foe';
                 }
             }
             else {
-                if ($me <= $other) {
+                if ($me < $other) {
                     return 'friend';
                 }
                 else {
