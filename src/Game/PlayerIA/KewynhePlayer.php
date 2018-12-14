@@ -64,7 +64,7 @@ class KewynhePlayer extends Player
             }
             
             if ($lastchoice == 'foe') {
-                if ($me < $other) {
+                if ($me <= $other) {
                     return 'foe';
                 }
                 else {
@@ -72,7 +72,7 @@ class KewynhePlayer extends Player
                 }
             }
             else {
-                if ($me < $other) {
+                if ($me <= $other) {
                     return 'friend';
                 }
                 else {
