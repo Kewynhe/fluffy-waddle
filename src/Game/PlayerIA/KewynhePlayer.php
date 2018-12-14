@@ -46,11 +46,14 @@ class KewynhePlayer extends Player
             return 'foe';
         }
         else {
+            //Get LastScore
             $me = $this->result->getLastScoreFor($this->mySide);
             $other = $this->result->getLastScoreFor($this->opponentSide);
 
+            //Get LastChoice from opponent
             $lastChoice = $this->result->getLastChoiceFor($this->opponentSide);
-
+            
+            //Get all the Choices to create Stats in percent from foe
             $myChoices = $this->result->getStatsFor($this->mySide);
             $foeChoices = $this->result->getStatsFor($this->opponentSide);
             
@@ -63,13 +66,21 @@ class KewynhePlayer extends Player
             /*$my_foeStats = $myChoices['foe']/$mySum * 100;
             $my_friendStats = $myChoices['friend']/$mySum * 100;*/
 
+            //If there is to many foe, go foe
             if ($foeSum > 3 && $foeChoices['foe'] == $foeSum) {
                 return 'foe';
             }
+            //Try to be nice
             if ($foeSum > 3 && $foeChoices['friend'] == $foeSum) {
                 return 'friend';
             }
             
+            /**
+             * Depending on the last choice from my Opponent
+             * Use the ratio and the difference about the scores
+             * to respond correctly in case if 'foe' came more than 30%
+             * or if 'friend' cmore than 70
+             * */
             if ($lastChoice == 'foe') {
                 if ($myChoices['score'] < $foeChoices['score']) {
                     if ($foe_foeStats > 30)
