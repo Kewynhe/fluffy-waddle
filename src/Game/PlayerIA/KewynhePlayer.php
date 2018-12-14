@@ -83,18 +83,21 @@ class KewynhePlayer extends Player
              * or if 'friend' cmore than 70
              * */
             if ($lastChoice == 'foe') {
-                if ($myChoices['score'] >= $foeChoices['score']) {
+                if ($myChoices['score'] >= $foeChoices['score']) { // In case of victory
                     if ($foe_foeStats > 30)
                         return 'foe';
                     else
                         return 'friend';
                 }
-                else {
+                else { // In case of defeat
                     if ($foe_friendStats > 70) {
                         return 'friend';
                     }
-                    else {
+                    else if ($lastChoice == 'foe') {
                         return 'foe';
+                    }
+                    else {
+                        return 'friend';
                     }
                 }
             }
