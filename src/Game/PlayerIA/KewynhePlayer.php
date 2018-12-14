@@ -42,37 +42,27 @@ class KewynhePlayer extends Player
         // -------------------------------------    -----------------------------------------------------
         
 
-        /*if (!$this->result->getLastChoiceFor($this->mySide)) {
-            return 'friend';
-        }
-        else {
-            $mylast = $this->result->getLastChoiceFor($this->mySide);
-            $foelast = $this->result->getLastChoiceFor($this->opponentSide);
-            $myscore = $this->result->getLastScoreFor($this->mySide);
-            $otherscore = $this->result->getLastScoreFor($this->opponentSide);
-
-            if ($mylast == $foelast) {
-                return $mylast;
-            }
-            else {
-                return $foelast;
-            }
-        }*/
-        
         if ($this->result->getNbRound() == 0) {
             return 'friend';
         }
         else {
             $me = $this->result->getLastScoreFor($this->mySide);
             $other = $this->result->getLastScoreFor($this->opponentSide);
-            /*$mychoices = $this->result->getStatsFor($this->mySide);
-            //array('name' => value, 'score' => value, 'friend' => value, 'foe' => value
-            var_dump($mychoices);
+
+            $lastchoice = $this->result->getLastChoiceFor($this->opponentSide);
+
             $foechoices = $this->result->getStatsFor($this->opponentSide);
             //array('name' => value, 'score' => value, 'friend' => value, 'foe' => value
-            var_dump($foechoices);*/
+
+            $sum = $foechoices['friend'] + $foechoices['foe'];
+
+            if ($sum > 3 && $foechoices['foe'] == $sum) {
+                return 'foe';
+            }
+            if ($sum > 3 && $foechoices['friend'] == $sum) {
+                return 'foe';
+            }
             
-            $lastchoice = $this->result->getLastChoiceFor($this->opponentSide);
             if ($lastchoice == 'foe') {
                 if ($me < $other) {
                     return 'foe';
