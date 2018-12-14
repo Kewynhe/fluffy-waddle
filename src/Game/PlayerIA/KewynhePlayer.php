@@ -43,7 +43,7 @@ class KewynhePlayer extends Player
 
         //Begin with foe
         if ($this->result->getNbRound() == 0) {
-            return 'friend';
+            return 'foe';
         }
         else {
             $me = $this->result->getLastScoreFor($this->mySide);
@@ -57,11 +57,11 @@ class KewynhePlayer extends Player
             $mySum = $myChoices['friend'] + $foeChoices['foe'];
             $foeSum = $foeChoices['friend'] + $foeChoices['foe'];
 
-            $foe_foeStats = $foeChoices['foe']/$foeSum * 100;
-            $foe_friendStats = $foeChoices['friend']/$foeSum * 100;
+            $foe_foeStats = $foeChoices['foe'] ? $foeChoices['foe']/$foeSum * 100 : 0;
+            $foe_friendStats = $foeChoices['friend'] ? $foeChoices['friend']/$foeSum * 100 : 0;
 
-            $my_foeStats = $myChoices['foe']/$mySum * 100;
-            $my_friendStats = $myChoices['friend']/$mySum * 100;
+            /*$my_foeStats = $myChoices['foe']/$mySum * 100;
+            $my_friendStats = $myChoices['friend']/$mySum * 100;*/
 
             if ($foeSum > 3 && $foeChoices['foe'] == $foeSum) {
                 return 'foe';
