@@ -43,7 +43,7 @@ class KewynhePlayer extends Player
 
         //Begin with foe
         if ($this->result->getNbRound() == 0) {
-            return 'foe';
+            return 'friend';
         }
         else {
             //Get LastScore
@@ -66,13 +66,14 @@ class KewynhePlayer extends Player
             /*$my_foeStats = $myChoices['foe']/$mySum * 100;
             $my_friendStats = $myChoices['friend']/$mySum * 100;*/
 
+            //If opponent is nice, be nice too
+            if ($lastChoice == 'friend') {
+                return 'friend';
+            }
+
             //If there is to many foe, go foe
             if ($foeSum > 3 && $foeChoices['foe'] == $foeSum) {
                 return 'foe';
-            }
-            //Try to be nice
-            if ($foeSum > 3 && $foeChoices['friend'] == $foeSum) {
-                return 'friend';
             }
             
             /**
@@ -82,22 +83,19 @@ class KewynhePlayer extends Player
              * or if 'friend' cmore than 70
              * */
             if ($lastChoice == 'foe') {
-                if ($myChoices['score'] < $foeChoices['score']) {
+                if ($myChoices['score'] >= $foeChoices['score']) {
                     if ($foe_foeStats > 30)
                         return 'foe';
                     else
                         return 'friend';
                 }
                 else {
-                    return $foe_friendStats > 70 ? 'friend' : 'foe';
-                }
-            }
-            else {
-                if ($me < $other) {
-                    return 'friend';
-                }
-                else {
-                    return 'foe';
+                    if ($foe_friendStats > 70) {
+                        return 'friend';
+                    }
+                    else {
+                        return 'foe';
+                    }
                 }
             }
         }
