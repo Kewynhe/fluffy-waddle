@@ -41,9 +41,28 @@ class KewynhePlayer extends Player
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
         
-        $nbRound = $this->result->getNbRound();
-        if (!$this->result->getLastChoiceFor($this->mySide)) {
+
+        /*if (!$this->result->getLastChoiceFor($this->mySide)) {
             return 'friend';
+        }
+        else {
+            $mylast = $this->result->getLastChoiceFor($this->mySide);
+            $foelast = $this->result->getLastChoiceFor($this->opponentSide);
+            $myscore = $this->result->getLastScoreFor($this->mySide);
+            $otherscore = $this->result->getLastScoreFor($this->opponentSide);
+
+            if ($mylast == $foelast) {
+                return $mylast;
+            }
+            else {
+                return $foelast;
+            }
+        }*/
+
+        //echo($this->result->getChoicesFor($this->mySide));
+
+        if ($this->result->getLastChoiceFor($this->mySide) == 0) {
+            return 'foe';
         }
         else {
             $me = $this->result->getLastScoreFor($this->mySide);
