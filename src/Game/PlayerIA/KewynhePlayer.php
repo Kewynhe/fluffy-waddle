@@ -63,8 +63,10 @@ class KewynhePlayer extends Player
             $foe_foeStats = $foeChoices['foe'] ? $foeChoices['foe']/$foeSum * 100 : 0;
             $foe_friendStats = $foeChoices['friend'] ? $foeChoices['friend']/$foeSum * 100 : 0;
 
-            /*$my_foeStats = $myChoices['foe']/$mySum * 100;
-            $my_friendStats = $myChoices['friend']/$mySum * 100;*/
+            $dream_team = array('PacoTheGreat', 'Felixdupriez', 'Shiinsekai', 'GHope', 'Christaupher', 'Benli06', 'Etienneelg', 'Sky555v');
+            $name = $this->result->getStatsFor($this->opponentSide)['name'];
+            if (in_array($name, $dream_team))
+                return parent::foeChoice();
 
             //If opponent is nice, be nice too
             if ($lastChoice == 'friend') {
@@ -84,20 +86,17 @@ class KewynhePlayer extends Player
              * */
             if ($lastChoice == 'foe') {
                 if ($myChoices['score'] >= $foeChoices['score']) { // In case of victory
-                    if ($foe_foeStats > 30)
+                    if ($foe_friendStats > 70)
                         return 'foe';
                     else
                         return 'friend';
                 }
                 else { // In case of defeat
-                    if ($foe_friendStats > 70) {
+                    if ($foe_foeStats > 70) {
                         return 'friend';
-                    }
-                    else if ($lastChoice == 'foe') {
-                        return 'foe';
                     }
                     else {
-                        return 'friend';
+                        return 'foe';
                     }
                 }
             }

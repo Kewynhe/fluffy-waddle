@@ -45,7 +45,7 @@ class Engine
         $matrix['friend']['friend'] = array('a' => 3, 'b' => 3);
         $matrix['foe']['friend'] = array('a' => 5, 'b' => 0);
         $matrix['friend']['foe'] = array('a' => 0, 'b' => 5);
-        $matrix['foe']['foe'] = array('a' => 1, 'b' => 1);
+        $matrix['foe']['foe'] = array('a' => 0, 'b' => 0);
 
         $scoreA = $matrix[$choiceA][$choiceB]['a'];
         $scoreB = $matrix[$choiceA][$choiceB]['b'];
