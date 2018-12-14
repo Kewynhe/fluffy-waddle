@@ -43,7 +43,7 @@ class KewynhePlayer extends Player
         
 
         if ($this->result->getNbRound() == 0) {
-            return 'friend';
+            return 'foe';
         }
         else {
             $me = $this->result->getLastScoreFor($this->mySide);
