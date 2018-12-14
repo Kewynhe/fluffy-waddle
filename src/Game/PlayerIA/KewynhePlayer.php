@@ -70,12 +70,12 @@ class KewynhePlayer extends Player
 
             //If opponent is nice, be nice too
             if ($lastChoice == 'friend') {
-                return 'friend';
+                return parent::friendChoice();
             }
 
             //If there is to many foe, go foe
             if ($foeSum > 3 && $foeChoices['foe'] == $foeSum) {
-                return 'foe';
+                return parent::foeChoice();
             }
             
             /**
@@ -87,16 +87,16 @@ class KewynhePlayer extends Player
             if ($lastChoice == 'foe') {
                 if ($myChoices['score'] >= $foeChoices['score']) { // In case of victory
                     if ($foe_friendStats > 70)
-                        return 'foe';
+                        return parent::foeChoice();
                     else
-                        return 'friend';
+                        return parent::friendChoice();
                 }
                 else { // In case of defeat
                     if ($foe_foeStats > 70) {
-                        return 'friend';
+                        return parent::friendChoice();
                     }
                     else {
-                        return 'foe';
+                        return parent::foeChoice();
                     }
                 }
             }
