@@ -46,15 +46,25 @@ class KewynhePlayer extends Player
             return 'friend';
         }
         else {
-            $me = $this->result->getChoicesFor($this->mySide);
-            $other = $this->result->getChoicesFor($this->opponentSide);
+            $me = $this->result->getLastScoreFor($this->mySide);
+            $other = $this->result->getLastScoreFor($this->opponentSide);
             
             $lastchoice = $this->result->getLastChoiceFor($this->opponentSide);
             if ($lastchoice == 'foe') {
-                return 'friend';
+                if ($me < $other) {
+                    return 'foe';
+                }
+                else {
+                    return 'friend';
+                }
             }
             else {
-                return 'foe';
+                if ($me < $other) {
+                    return 'friend';
+                }
+                else {
+                    return 'foe';
+                }
             }
         }
     }
