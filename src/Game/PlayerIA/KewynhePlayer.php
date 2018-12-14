@@ -58,15 +58,19 @@ class KewynhePlayer extends Player
                 return $foelast;
             }
         }*/
-
-        //echo($this->result->getChoicesFor($this->mySide));
-
-        if ($this->result->getLastChoiceFor($this->mySide) == 0) {
-            return 'foe';
+        
+        if ($this->result->getNbRound() == 0) {
+            return 'friend';
         }
         else {
             $me = $this->result->getLastScoreFor($this->mySide);
             $other = $this->result->getLastScoreFor($this->opponentSide);
+            /*$mychoices = $this->result->getStatsFor($this->mySide);
+            //array('name' => value, 'score' => value, 'friend' => value, 'foe' => value
+            var_dump($mychoices);
+            $foechoices = $this->result->getStatsFor($this->opponentSide);
+            //array('name' => value, 'score' => value, 'friend' => value, 'foe' => value
+            var_dump($foechoices);*/
             
             $lastchoice = $this->result->getLastChoiceFor($this->opponentSide);
             if ($lastchoice == 'foe') {
